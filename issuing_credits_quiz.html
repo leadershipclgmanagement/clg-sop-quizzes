@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Issuing Credits to Resident Ledgers – SOP Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--clg-navy:#1a2744;--clg-blue:#2c5282;--clg-gold:#d4a843;--clg-gold-light:#f5e6c4;--clg-cream:#faf8f4;--clg-white:#fff;--clg-gray:#64748b;--clg-border:#e2ddd5;--clg-green:#2f855a;--clg-green-light:#e6f4ea;--clg-red:#c53030;--clg-red-light:#fce8e8;--radius:10px}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',sans-serif;background:var(--clg-cream);color:var(--clg-navy);min-height:100vh;padding:2rem 1rem}
+  .quiz-container{max-width:680px;margin:0 auto}
+  .quiz-header{background:var(--clg-navy);color:var(--clg-white);padding:2.5rem 2rem 2rem;border-radius:var(--radius) var(--radius) 0 0;position:relative;overflow:hidden}
+  .quiz-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--clg-gold),var(--clg-gold-light),var(--clg-gold))}
+  .quiz-header .badge{display:inline-block;background:var(--clg-gold);color:var(--clg-navy);font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .75rem;border-radius:20px;margin-bottom:1rem}
+  .quiz-header h1{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;line-height:1.3;margin-bottom:.5rem}
+  .quiz-header p{font-size:.85rem;opacity:.75}
+  .form-body{background:var(--clg-white);border-left:1px solid var(--clg-border);border-right:1px solid var(--clg-border)}
+  .info-section{padding:1.5rem 2rem;border-bottom:1px solid var(--clg-border);display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .info-section label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--clg-gray);display:block;margin-bottom:.35rem}
+  .info-section input{width:100%;padding:.6rem .75rem;border:1.5px solid var(--clg-border);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--clg-navy);transition:border-color .2s}
+  .info-section input:focus{outline:none;border-color:var(--clg-blue);box-shadow:0 0 0 3px rgba(44,82,130,.1)}
+  .question-card{padding:1.5rem 2rem;border-bottom:1px solid var(--clg-border);transition:all .3s}
+  .question-card.correct{background:var(--clg-green-light);border-left:4px solid var(--clg-green)}
+  .question-card.incorrect{background:var(--clg-red-light);border-left:4px solid var(--clg-red)}
+  .q-number{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--clg-navy);color:var(--clg-gold);font-weight:700;font-size:.8rem;border-radius:50%;margin-bottom:.6rem}
+  .question-card.correct .q-number{background:var(--clg-green);color:#fff}
+  .question-card.incorrect .q-number{background:var(--clg-red);color:#fff}
+  .q-text{font-weight:500;font-size:.95rem;line-height:1.5;margin-bottom:1rem}
+  .options{display:flex;flex-direction:column;gap:.5rem}
+  .option-label{display:flex;align-items:flex-start;gap:.75rem;padding:.7rem .85rem;border:1.5px solid var(--clg-border);border-radius:8px;cursor:pointer;transition:all .2s;font-size:.9rem;line-height:1.4}
+  .option-label:hover{border-color:var(--clg-blue);background:rgba(44,82,130,.03)}
+  .option-label input[type="radio"]{accent-color:var(--clg-blue);margin-top:2px;flex-shrink:0}
+  .option-label:has(input:checked){border-color:var(--clg-blue);background:rgba(44,82,130,.06)}
+  .question-card.correct .option-label:has(input:checked){border-color:var(--clg-green);background:rgba(47,133,90,.1)}
+  .question-card.incorrect .option-label:has(input:checked){border-color:var(--clg-red);background:rgba(197,48,48,.1)}
+  .feedback{margin-top:.75rem;padding:.6rem .85rem;border-radius:6px;font-size:.85rem;font-weight:500;display:none}
+  .feedback.show{display:flex;align-items:center;gap:.4rem}
+  .feedback.correct-fb{background:var(--clg-green-light);color:var(--clg-green)}
+  .feedback.incorrect-fb{background:var(--clg-red-light);color:var(--clg-red)}
+  .acknowledgment{padding:1.5rem 2rem;background:var(--clg-gold-light);border-left:4px solid var(--clg-gold);font-size:.85rem;line-height:1.6}
+  .acknowledgment strong{display:block;margin-bottom:.3rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
+  .form-footer{background:var(--clg-white);padding:1.5rem 2rem;border:1px solid var(--clg-border);border-top:none;border-radius:0 0 var(--radius) var(--radius);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
+  .submit-btn{background:var(--clg-navy);color:var(--clg-white);border:none;padding:.75rem 2rem;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;border-radius:8px;cursor:pointer;transition:all .2s}
+  .submit-btn:hover{background:var(--clg-blue);transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,39,68,.25)}
+  .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+  .score-display{font-size:.85rem;color:var(--clg-gray)}
+  .banner{display:none;padding:1.25rem 2rem;text-align:center;font-weight:500;font-size:.95rem;border-radius:var(--radius);margin-bottom:1rem;animation:slideDown .4s ease}
+  .banner.show{display:block}
+  .banner.success{background:var(--clg-green);color:#fff}
+  .banner.retry{background:var(--clg-red);color:#fff}
+  @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+  .error-msg{color:var(--clg-red);font-size:.8rem;margin-top:.5rem;display:none;text-align:center}
+  @media(max-width:600px){body{padding:1rem .5rem}.info-section{grid-template-columns:1fr}.quiz-header,.info-section,.question-card,.form-footer{padding-left:1.25rem;padding-right:1.25rem}.quiz-header h1{font-size:1.35rem}}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+  <div class="banner success" id="successBanner">✓ Perfect score! Quiz submitted successfully — your responses have been recorded.</div>
+  <div class="banner retry" id="retryBanner">✗ You got <span id="wrongCount"></span> question(s) wrong. Review the highlighted questions and try again.</div>
+  <form id="quizForm" onsubmit="return handleSubmit(event)">
+    <div class="quiz-header">
+      <div class="badge">SOP Quiz</div>
+      <h1>Issuing Credits to Resident Ledgers</h1>
+      <p>You must score 100% to submit. Incorrect answers will be highlighted.</p>
+    </div>
+    <div class="form-body">
+      <div class="info-section">
+        <div><label for="empName">Employee Name</label><input type="text" id="empName" required placeholder="Full name"></div>
+        <div><label for="property">Property / Site</label><input type="text" id="property" required placeholder="Property name"></div>
+      </div>
+      <div class="question-card" id="card-q1">
+        <div class="q-number">1</div>
+        <div class="q-text">What is the purpose of the Issuing Credits to Resident Ledgers SOP?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q1" value="A" required><span>A. To eliminate credits entirely</span></label>
+          <label class="option-label"><input type="radio" name="q1" value="B"><span>B. To standardize issuing credits in a compliant and auditable manner</span></label>
+          <label class="option-label"><input type="radio" name="q1" value="C"><span>C. To allow residents to request credits without approval</span></label>
+          <label class="option-label"><input type="radio" name="q1" value="D"><span>D. To require accounting to post all credits</span></label>
+        </div>
+        <div class="feedback correct-fb" id="fb-q1-correct">✓ Correct!</div>
+        <div class="feedback incorrect-fb" id="fb-q1-incorrect">✗ Incorrect — please review and select the right answer.</div>
+      </div>
+      <div class="question-card" id="card-q2">
+        <div class="q-number">2</div>
+        <div class="q-text">Which is an acceptable reason for issuing a credit?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q2" value="A" required><span>A. Misbilling or billing errors</span></label>
+          <label class="option-label"><input type="radio" name="q2" value="B"><span>B. Damage to resident property caused by management</span></label>
+          <label class="option-label"><input type="radio" name="q2" value="C"><span>C. Significant inconveniences impacting resident experience</span></label>
+          <label class="option-label"><input type="radio" name="q2" value="D"><span>D. All of the above</span></label>
+        </div>
+        <div class="feedback correct-fb" id="fb-q2-correct">✓ Correct!</div>
+        <div class="feedback incorrect-fb" id="fb-q2-incorrect">✗ Incorrect — please review and select the right answer.</div>
+      </div>
+      <div class="question-card" id="card-q3">
+        <div class="q-number">3</div>
+        <div class="q-text">What is the maximum credit amount a Manager may approve per resident account?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q3" value="A" required><span>A. $100</span></label>
+          <label class="option-label"><input type="radio" name="q3" value="B"><span>B. $250</span></label>
+          <label class="option-label"><input type="radio" name="q3" value="C"><span>C. $500</span></label>
+          <label class="option-label"><input type="radio" name="q3" value="D"><span>D. $1,000</span></label>
+        </div>
+        <div class="feedback correct-fb" id="fb-q3-correct">✓ Correct!</div>
+        <div class="feedback incorrect-fb" id="fb-q3-incorrect">✗ Incorrect — please review and select the right answer.</div>
+      </div>
+      <div class="question-card" id="card-q4">
+        <div class="q-number">4</div>
+        <div class="q-text">Any credit exceeding $1,000 must receive prior approval from:</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q4" value="A" required><span>A. Accounting Department</span></label>
+          <label class="option-label"><input type="radio" name="q4" value="B"><span>B. Regional Manager</span></label>
+          <label class="option-label"><input type="radio" name="q4" value="C"><span>C. Steven</span></label>
+          <label class="option-label"><input type="radio" name="q4" value="D"><span>D. Leasing Agent</span></label>
+        </div>
+        <div class="feedback correct-fb" id="fb-q4-correct">✓ Correct!</div>
+        <div class="feedback incorrect-fb" id="fb-q4-incorrect">✗ Incorrect — please review and select the right answer.</div>
+      </div>
+      <div class="question-card" id="card-q5">
+        <div class="q-number">5</div>
+        <div class="q-text">Which documentation is required for all credits recorded in Yardi?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q5" value="A" required><span>A. Resident name/unit/account number, credit amount, dates, reason category, approver name/date</span></label>
+          <label class="option-label"><input type="radio" name="q5" value="B"><span>B. Only the credit amount</span></label>
+          <label class="option-label"><input type="radio" name="q5" value="C"><span>C. Only a resident email request</span></label>
+          <label class="option-label"><input type="radio" name="q5" value="D"><span>D. No documentation is required</span></label>
+        </div>
+        <div class="feedback correct-fb" id="fb-q5-correct">✓ Correct!</div>
+        <div class="feedback incorrect-fb" id="fb-q5-incorrect">✗ Incorrect — please review and select the right answer.</div>
+      </div>
+      <div class="acknowledgment">
+        <strong>Acknowledgment</strong>
+        I understand credits must not be entered until required approvals are obtained and documentation is recorded in Yardi.
+      </div>
+    </div>
+    <div class="form-footer">
+      <div class="score-display" id="scoreDisplay"></div>
+      <button type="submit" class="submit-btn" id="submitBtn">Check Answers</button>
+    </div>
+  </form>
+  <div class="error-msg" id="errorMsg">Please answer all questions before checking.</div>
+</div>
+
+<!-- Hidden iframe and form for Google Sheets submission -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+<form id="sheetForm" action="https://script.google.com/macros/s/AKfycbwdoZ3cyX33WAr2dmSXYaK5k3aErmnhCQrLJ2w8SlahcC_7n6X4y6rHmpJRzIgiP6CjRQ/exec" method="POST" target="hidden_iframe" style="display:none;">
+  <input type="hidden" name="timestamp" id="hTimestamp">
+  <input type="hidden" name="empName" id="hEmpName">
+  <input type="hidden" name="property" id="hProperty">
+  <input type="hidden" name="q1" id="hQ1">
+  <input type="hidden" name="q2" id="hQ2">
+  <input type="hidden" name="q3" id="hQ3">
+  <input type="hidden" name="q4" id="hQ4">
+  <input type="hidden" name="q5" id="hQ5">
+  <input type="hidden" name="score" id="hScore">
+</form>
+
+<script>
+const ANSWERS={q1:'B',q2:'D',q3:'C',q4:'C',q5:'A'};
+let submitted=false;
+
+function handleSubmit(e){
+  e.preventDefault();
+  if(submitted)return false;
+  for(let i=1;i<=5;i++){if(!document.querySelector(`input[name="q${i}"]:checked`)){document.getElementById('errorMsg').style.display='block';return false;}}
+  document.getElementById('errorMsg').style.display='none';
+  let score=0,wrong=0,firstWrong=null;
+  for(const[q,correct]of Object.entries(ANSWERS)){
+    const card=document.getElementById(`card-${q}`);
+    const sel=document.querySelector(`input[name="${q}"]:checked`);
+    card.classList.remove('correct','incorrect');
+    document.getElementById(`fb-${q}-correct`).classList.remove('show');
+    document.getElementById(`fb-${q}-incorrect`).classList.remove('show');
+    if(sel.value===correct){score++;card.classList.add('correct');document.getElementById(`fb-${q}-correct`).classList.add('show');}
+    else{wrong++;card.classList.add('incorrect');document.getElementById(`fb-${q}-incorrect`).classList.add('show');if(!firstWrong)firstWrong=card;}
+  }
+  document.getElementById('scoreDisplay').textContent=`Score: ${score} / 5`;
+  document.getElementById('successBanner').classList.remove('show');
+  document.getElementById('retryBanner').classList.remove('show');
+  if(score<5){document.getElementById('wrongCount').textContent=wrong;document.getElementById('retryBanner').classList.add('show');document.getElementById('submitBtn').textContent='Try Again';window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>{if(firstWrong)firstWrong.scrollIntoView({behavior:'smooth',block:'center'});},800);return false;}
+  
+  submitted=true;
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true;
+  btn.textContent='Submitting...';
+  
+  document.getElementById('hTimestamp').value=new Date().toLocaleString();
+  document.getElementById('hEmpName').value=document.getElementById('empName').value.trim();
+  document.getElementById('hProperty').value=document.getElementById('property').value.trim();
+  document.getElementById('hQ1').value=document.querySelector('input[name="q1"]:checked').value;
+  document.getElementById('hQ2').value=document.querySelector('input[name="q2"]:checked').value;
+  document.getElementById('hQ3').value=document.querySelector('input[name="q3"]:checked').value;
+  document.getElementById('hQ4').value=document.querySelector('input[name="q4"]:checked').value;
+  document.getElementById('hQ5').value=document.querySelector('input[name="q5"]:checked').value;
+  document.getElementById('hScore').value='5/5';
+  
+  document.getElementById('sheetForm').submit();
+  
+  setTimeout(()=>{
+    document.getElementById('successBanner').classList.add('show');
+    document.getElementById('retryBanner').classList.remove('show');
+    btn.textContent='Submitted ✓';
+    window.scrollTo({top:0,behavior:'smooth'});
+  },1500);
+  
+  return false;
+}
+</script>
+</body>
+</html>
