@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLG Management – SOP Training Quizzes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--clg-navy:#1a2744;--clg-blue:#2c5282;--clg-gold:#d4a843;--clg-gold-light:#f5e6c4;--clg-cream:#faf8f4;--clg-white:#fff;--clg-gray:#64748b;--clg-border:#e2ddd5;--radius:10px}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',sans-serif;background:var(--clg-cream);color:var(--clg-navy);min-height:100vh;padding:2rem 1rem}
+  .container{max-width:600px;margin:0 auto}
+  .header{background:var(--clg-navy);color:var(--clg-white);padding:2.5rem 2rem 2rem;border-radius:var(--radius) var(--radius) 0 0;position:relative;overflow:hidden;text-align:center}
+  .header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--clg-gold),var(--clg-gold-light),var(--clg-gold))}
+  .header .badge{display:inline-block;background:var(--clg-gold);color:var(--clg-navy);font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .75rem;border-radius:20px;margin-bottom:1rem}
+  .header h1{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:700;line-height:1.3;margin-bottom:.5rem}
+  .header p{font-size:.9rem;opacity:.75}
+  .quiz-list{background:var(--clg-white);border-left:1px solid var(--clg-border);border-right:1px solid var(--clg-border);border-bottom:1px solid var(--clg-border);border-radius:0 0 var(--radius) var(--radius);padding:1rem 0}
+  .quiz-link{display:flex;align-items:center;gap:1rem;padding:1.1rem 2rem;text-decoration:none;color:var(--clg-navy);border-bottom:1px solid var(--clg-border);transition:all .2s}
+  .quiz-link:last-child{border-bottom:none}
+  .quiz-link:hover{background:var(--clg-gold-light);padding-left:2.3rem}
+  .quiz-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:var(--clg-navy);color:var(--clg-gold);font-weight:700;font-size:.9rem;border-radius:50%;flex-shrink:0}
+  .quiz-link:hover .quiz-num{background:var(--clg-gold);color:var(--clg-navy)}
+  .quiz-info{flex:1}
+  .quiz-title{font-weight:700;font-size:1rem;margin-bottom:.15rem}
+  .quiz-desc{font-size:.8rem;color:var(--clg-gray)}
+  .arrow{font-size:1.2rem;color:var(--clg-gray);transition:transform .2s}
+  .quiz-link:hover .arrow{transform:translateX(4px);color:var(--clg-navy)}
+  .footer{text-align:center;padding:1.5rem;font-size:.75rem;color:var(--clg-gray)}
+  @media(max-width:600px){body{padding:1rem .5rem}.header,.quiz-link{padding-left:1.25rem;padding-right:1.25rem}.header h1{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">CLG Management</div>
+    <h1>SOP Training Quizzes</h1>
+    <p>Select a quiz below. You must score 100% to submit.</p>
+  </div>
+  <div class="quiz-list">
+    <a class="quiz-link" href="issuing_credits_quiz.html">
+      <div class="quiz-num">1</div>
+      <div class="quiz-info">
+        <div class="quiz-title">Issuing Credits to Resident Ledgers</div>
+        <div class="quiz-desc">5 questions · Credit approval & documentation</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+    <a class="quiz-link" href="lease_breaks_quiz.html">
+      <div class="quiz-num">2</div>
+      <div class="quiz-info">
+        <div class="quiz-title">Lease Breaks</div>
+        <div class="quiz-desc">5 questions · Early termination process</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+    <a class="quiz-link" href="move_out_process_quiz.html">
+      <div class="quiz-num">3</div>
+      <div class="quiz-info">
+        <div class="quiz-title">Move-Out Process and Notice</div>
+        <div class="quiz-desc">5 questions · Turnover & vacancy minimization</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+    <a class="quiz-link" href="mtm_leases_quiz.html">
+      <div class="quiz-num">4</div>
+      <div class="quiz-info">
+        <div class="quiz-title">Month-to-Month (MTM) Leases</div>
+        <div class="quiz-desc">5 questions · MTM premiums & renewal offers</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+    <a class="quiz-link" href="quote_approval_quiz.html">
+      <div class="quiz-num">5</div>
+      <div class="quiz-info">
+        <div class="quiz-title">Quote Approval Policy and Process</div>
+        <div class="quiz-desc">5 questions · Approval routing & escalation</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+  </div>
+  <div class="footer">California Landmark Group · SOP Training Program</div>
+</div>
+</body>
+</html>
