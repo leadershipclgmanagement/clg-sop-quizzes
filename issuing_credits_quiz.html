@@ -154,6 +154,7 @@
   <input type="hidden" name="q4" id="hQ4">
   <input type="hidden" name="q5" id="hQ5">
   <input type="hidden" name="score" id="hScore">
+  <input type="hidden" name="quizName" id="hQuizName">
 </form>
 
 <script>
@@ -194,6 +195,7 @@ function handleSubmit(e){
   document.getElementById('hQ4').value=document.querySelector('input[name="q4"]:checked').value;
   document.getElementById('hQ5').value=document.querySelector('input[name="q5"]:checked').value;
   document.getElementById('hScore').value='5/5';
+  document.getElementById('hQuizName').value='Issuing Credits';
   
   document.getElementById('sheetForm').submit();
   
